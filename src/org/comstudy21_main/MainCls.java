@@ -10,19 +10,24 @@ public class MainCls {
 	public static Dao dao = new Dao();
 	
 	public static void main(String[] args) {
-		update(null);
+		findCodeByName(null);
 	}
 	
+	public static void findCodeByName(String[] args) {
+		String name = "ÀÌÁö»ó";
+		String code = dao.findCodeByName(name);
+		System.out.println("i want to find the code by the name, it is " + code);
+	}
 	
-	public static void test6(String[] args) {
-		Dto dto = new Dto(null,null, null,null, 0);
+	public static void selectOne(String[] args) {
+		Dto dto = new Dto("1003",null, null,null, 0);
 		ArrayList<Dto> list = dao.selectOne(dto);
 		for( Dto data : list) {
 			System.out.println(data);
 		}
 	}
 	
-	public static void test5(String[] args) { //search
+	public static void selectName(String[] args) { //search
 		Dto dto = new Dto(null,"±è¹é", null, null, 0);
 		ArrayList<Dto> list = dao.select(dto);
 		for(Dto data : list) {
@@ -37,7 +42,7 @@ public class MainCls {
 	}
 	
 	public static void delete(String[] args) { //delete
-		Dto dto = new Dto("1003", null, null, null, 0);
+		Dto dto = new Dto("1005", null, null, null, 0);
 		dao.delete(dto);
 	}
 	
@@ -50,7 +55,7 @@ public class MainCls {
 	
 	public static void insert(String[] args) {//input
 		//1 dao È£Ãâ
-		Dto dto = new Dto("1003", "È«±æµ¿", "test", "4444", 45);
+		Dto dto = new Dto("1005", "È«±æµ¿", "test", "4444", 45);
 		dao.insert(dto);
 	}
 }

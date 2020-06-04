@@ -15,9 +15,10 @@ interface DaoInterface {
 	String INSERT = "INSERT INTO MEMBER VALUES(?,?,?,?,?)";
 	String SELECTALL = "SELECT * FROM MEMBER ORDER BY CODE DESC";
 	String SELECT = "SELECT * FROM MEMBER WHERE NAME LIKE '%'||?||'%'";
+	String SELECT_ONE = "SELECT * FROM MEMBER WHERE CODE = ? ;";
 	String UPDATE = "UPDATE MEMBER SET NAME=?, ID=?, PWD=?, AGE=? WHERE CODE=?";
 	String DELETE = "DELETE FROM MEMBER WHERE CODE = ? ";
-	String SELECT_ONE = "SELECT * FROM PERSONAL PNO;";
+	String FINDCODEBYNAME = "SELECT CODE FROM MEMBER WHERE NAME = ?";
 	// 식별을 위해 프라이머리키가 필요 그리고 날짜가 들어가야 한다 프라이머리 키 그리고 날짜로 정렬 가능 .
 	// '%'||?||'%' 부분검색 (인터넷 검색 가능)
 
@@ -159,7 +160,27 @@ public class Dao implements DaoInterface {
 		}
 		return list; // 코드 하나만...
 	}
-
+	
+	public String findCodeByName(String name) {
+		String code = null;
+		ArrayList<Dto> list = new ArrayList<Dto>();
+		
+		try {
+			pstmt = conn.prepareStatement(FINDCODEBYNAME);
+			pstmt.setString(1, name);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				code = rs.getString("code");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(rs, pstmt, null);
+		}
+		return code;
+	}
+	
 	@Override
 	public void update(Dto dto) {
 		try {

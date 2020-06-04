@@ -12,7 +12,7 @@ public class JdbcUtil {
 		// 2
 		String url = "jdbc:h2:tcp://localhost/~/test";
 		String user = "sa";
-		String password = "";
+		String password = "12345";
 		Connection conn = null;
 		try {
 			Class.forName("org.h2.Driver");
